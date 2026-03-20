@@ -8,11 +8,12 @@ pad = LaunchControlXL()
 def set_volume(value):
     """Change the volume on a KDE Desktop (Linux or similar)"""
     value = min(100, value)
-    check_output(["/usr/bin/amixer", "sset", "'Master'", "{}%".format(value)])
+    check_output(["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "{}%".format(value)])
 
 
 @pad.register
 async def handle_volume(code, input: pad.inputs.fader0, value, device):
+    print(value)
     set_volume(value)
 
 
